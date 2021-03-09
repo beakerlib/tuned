@@ -34,6 +34,8 @@ Restores previous profile
 
     tunedProfileRestore
 
+## tunedAssertCPUsEqual
+
 Check equal number of CPUs - portable way
 
     tunedAssertCPUsEqual
@@ -53,12 +55,4 @@ Supported phases are:
 # AUTHORS
 
 - Robin Hack <rhack@redhat.com>
-Branislav Blaskovic <bblaskov@redhat.com>
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 140:
-
-    &#x3d;pod directives shouldn't be over one line long!  Ignoring all 2 lines of content
+- Branislav Blaskovic <bblaskov@redhat.com>

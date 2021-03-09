@@ -138,6 +138,7 @@ tunedProfileRestore() {
 
 true <<'=cut'
 =pod
+
 =head2 tunedAssertCPUsEqual
 
 Check equal number of CPUs - portable way
@@ -225,10 +226,9 @@ true <<'=cut'
 
 =over
 
-=item *
+=item * Robin Hack <rhack@redhat.com>
 
-Robin Hack <rhack@redhat.com>
-Branislav Blaskovic <bblaskov@redhat.com>
+=item * Branislav Blaskovic <bblaskov@redhat.com>
 
 =back
 
