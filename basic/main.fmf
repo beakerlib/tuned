@@ -1,0 +1,6 @@
+summary: Library for tuned
+contact: rhack@redhat.com
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- tuned
