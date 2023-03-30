@@ -138,7 +138,6 @@ tunedProfileRestore() {
 
 true <<'=cut'
 =pod
-
 =head2 tunedAssertCPUsEqual
 
 Check equal number of CPUs - portable way
@@ -178,6 +177,61 @@ tunedAssertCPUsGreaterOrEqual()
     local CPUS_NEEDED="$1"
     local ONLINE_CPUS="$(getconf _NPROCESSORS_ONLN)"
     rlAssertGreaterOrEqual "Compare number of CPUs" "$CPUS_NEEDED" "$ONLINE_CPUS"
+}
+
+true <<'=cut'
+=pod
+=head2 tunedDisableSystemdRateLimitingStart
+
+Disable rate limiting of systemd.
+
+    tunedDisableSystemdRateLimitingStart
+
+=over
+
+=back
+
+=cut
+
+tunedDisableSystemdRateLimitingStart()
+{
+	if rlIsRHEL >= '7'; then
+		rlFileBackup --clean /etc/systemd/system.conf.d
+		rlRun "mkdir -p /etc/systemd/system.conf.d"
+		rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
+		rlRun "systemctl daemon-reload"
+		return 0
+	fi
+
+	return 0
+}
+
+true <<'=cut'
+=pod
+=head2 tunedDisableSystemdRateLimitingEnd
+
+Enable rate limiting of systemd.
+It's just restore files and reload daemon so
+tunedDisableSystemdRateLimitingStart must be called
+before.
+
+    tunedDisableSystemdRateLimitingEnd
+
+=over
+
+=back
+
+=cut
+
+tunedDisableSystemdRateLimitingEnd()
+{
+	if rlIsRHEL '>=7'; then
+		rlFileRestore
+		rlRun "systemctl daemon-reload"
+		return 0
+	fi
+
+	return 0
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -226,9 +280,10 @@ true <<'=cut'
 
 =over
 
-=item * Robin Hack <rhack@redhat.com>
+=item *
 
-=item * Branislav Blaskovic <bblaskov@redhat.com>
+Robin Hack <rhack@redhat.com>
+Branislav Blaskovic <bblaskov@redhat.com>
 
 =back
 
