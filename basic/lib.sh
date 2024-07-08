@@ -250,7 +250,7 @@ Get current profile directory.
 
 =cut
 
-tunedGetProfileDir()
+tunedGetProfilesBaseDir)
 {
     BASEPATH="/etc/tuned/"
     if [ -d "/etc/tuned/profiles" ]; then
