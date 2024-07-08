@@ -138,7 +138,6 @@ tunedProfileRestore() {
 
 true <<'=cut'
 =pod
-
 =head2 tunedAssertCPUsEqual
 
 Check equal number of CPUs - portable way
@@ -196,7 +195,7 @@ Disable rate limiting of systemd.
 
 tunedDisableSystemdRateLimitingStart()
 {
-	if rlIsRHEL >= '7'; then
+	if [ rlIsRHEL '>=7' || rlIsCentOS '>=7' ]; then
 		rlFileBackup --clean /etc/systemd/system.conf.d
 		rlRun "mkdir -p /etc/systemd/system.conf.d"
 		rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
@@ -281,9 +280,10 @@ true <<'=cut'
 
 =over
 
-=item * Robin Hack <rhack@redhat.com>
+=item *
 
-=item * Branislav Blaskovic <bblaskov@redhat.com>
+Robin Hack <rhack@redhat.com>
+Branislav Blaskovic <bblaskov@redhat.com>
 
 =back
 
