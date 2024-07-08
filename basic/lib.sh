@@ -234,6 +234,33 @@ tunedDisableSystemdRateLimitingEnd()
 	return 0
 }
 
+
+true <<'=cut'
+=pod
+
+=head2 tunedGetProfilesBaseDir
+
+Get current profile directory.
+
+    tunedGetProfilesBaseDir
+
+=over
+
+=back
+
+=cut
+
+tunedGetProfileDir()
+{
+    BASEPATH="/etc/tuned/"
+    if [ -d "/etc/tuned/profiles" ]; then
+        BASEPATH="/etc/tuned/profiles/"
+    fi
+
+    echo "${BASEPATH}"
+}
+
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Execution
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
