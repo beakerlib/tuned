@@ -195,14 +195,10 @@ Disable rate limiting of systemd.
 
 tunedDisableSystemdRateLimitingStart()
 {
-	if rlIsRHEL '>=7' || rlIsCentOS '>=7'; then
-		rlFileBackup --clean /etc/systemd/system.conf.d
-		rlRun "mkdir -p /etc/systemd/system.conf.d"
-		rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
-		rlRun "systemctl daemon-reload"
-		return 0
-	fi
-
+	rlFileBackup --clean /etc/systemd/system.conf.d
+	rlRun "mkdir -p /etc/systemd/system.conf.d"
+	rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
+	rlRun "systemctl daemon-reload"
 	return 0
 }
 
@@ -225,12 +221,8 @@ before.
 
 tunedDisableSystemdRateLimitingEnd()
 {
-	if rlIsRHEL '>=7'; then
-		rlFileRestore
-		rlRun "systemctl daemon-reload"
-		return 0
-	fi
-
+	rlFileRestore
+	rlRun "systemctl daemon-reload"
 	return 0
 }
 
