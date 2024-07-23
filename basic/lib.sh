@@ -195,7 +195,7 @@ Disable rate limiting of systemd.
 
 tunedDisableSystemdRateLimitingStart()
 {
-	if [ rlIsRHEL '>=7' || rlIsCentOS '>=7' ]; then
+	if rlIsRHEL '>=7' || rlIsCentOS '>=7'; then
 		rlFileBackup --clean /etc/systemd/system.conf.d
 		rlRun "mkdir -p /etc/systemd/system.conf.d"
 		rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
@@ -250,7 +250,7 @@ Get current profile directory.
 
 =cut
 
-tunedGetProfilesBaseDir)
+tunedGetProfilesBaseDir()
 {
     BASEPATH="/etc/tuned/"
     if [ -d "/etc/tuned/profiles" ]; then
