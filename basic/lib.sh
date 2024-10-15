@@ -244,9 +244,35 @@ Get current profile directory.
 
 tunedGetProfilesBaseDir()
 {
-    BASEPATH="/etc/tuned/"
+    BASEPATH="/etc/tuned"
     if [ -d "/etc/tuned/profiles" ]; then
-        BASEPATH="/etc/tuned/profiles/"
+        BASEPATH="/etc/tuned/profiles"
+    fi
+
+    echo "${BASEPATH}"
+}
+
+
+true <<'=cut'
+=pod
+
+=head2 tunedGetSystemProfilesBaseDir
+
+Get current system profile directory.
+
+    tunedGetSystemProfilesBaseDir
+
+=over
+
+=back
+
+=cut
+
+tunedGetSystemProfilesBaseDir()
+{
+    BASEPATH="/usr/lib/tuned"
+    if [ -d "$BASEPATH/profiles" ]; then
+        BASEPATH="$BASEPATH/profiles"
     fi
 
     echo "${BASEPATH}"
