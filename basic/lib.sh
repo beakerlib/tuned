@@ -195,11 +195,11 @@ Disable rate limiting of systemd.
 
 tunedDisableSystemdRateLimitingStart()
 {
-	rlFileBackup --clean /etc/systemd/system.conf.d
-	rlRun "mkdir -p /etc/systemd/system.conf.d"
-	rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
-	rlRun "systemctl daemon-reload"
-	return 0
+    rlFileBackup --clean /etc/systemd/system.conf.d
+    rlRun "mkdir -p /etc/systemd/system.conf.d"
+    rlRun "echo -e '[Manager]\nDefaultStartLimitInterval=0' > /etc/systemd/system.conf.d/tuned.conf" 0 "Disable systemd rate limiting"
+    rlRun "systemctl daemon-reload"
+    return 0
 }
 
 true <<'=cut'
@@ -221,9 +221,9 @@ before.
 
 tunedDisableSystemdRateLimitingEnd()
 {
-	rlFileRestore
-	rlRun "systemctl daemon-reload"
-	return 0
+    rlFileRestore
+    rlRun "systemctl daemon-reload"
+    return 0
 }
 
 
@@ -244,9 +244,9 @@ Get current profile directory.
 
 tunedGetProfilesBaseDir()
 {
-    BASEPATH="/etc/tuned"
+    BASEPATH="/etc/tuned/"
     if [ -d "/etc/tuned/profiles" ]; then
-        BASEPATH="/etc/tuned/profiles"
+        BASEPATH="/etc/tuned/profiles/"
     fi
 
     echo "${BASEPATH}"
@@ -256,11 +256,11 @@ tunedGetProfilesBaseDir()
 true <<'=cut'
 =pod
 
-=head2 tunedGetSystemProfilesBaseDir
+=head2 tunedGetUsrProfilesBaseDir
 
-Get current system profile directory.
+Get current system wide profile directory.
 
-    tunedGetSystemProfilesBaseDir
+    tunedGetUsrProfilesBaseDir
 
 =over
 
@@ -268,16 +268,15 @@ Get current system profile directory.
 
 =cut
 
-tunedGetSystemProfilesBaseDir()
+tunedGetUsrProfilesBaseDir()
 {
-    BASEPATH="/usr/lib/tuned"
-    if [ -d "$BASEPATH/profiles" ]; then
-        BASEPATH="$BASEPATH/profiles"
+    BASEPATH="/usr/lib/tuned/"
+    if [ -d "/usr/lib/tuned/profiles" ]; then
+        BASEPATH="/usr/lib/tuned/profiles/"
     fi
 
     echo "${BASEPATH}"
 }
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Execution
