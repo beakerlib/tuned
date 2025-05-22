@@ -1,0 +1,11 @@
+downstream_package_name: tuned
+jobs:
+- job: tests
+  trigger: commit
+  branch: master
+  skip_build: true
+  fmf_url: https://github.com/redhat-performance/tuned
+  targets:
+    - fedora-all
+    - centos-stream-9-x86_64
+    - centos-stream-10-x86_64
