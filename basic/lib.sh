@@ -278,6 +278,81 @@ tunedGetUsrProfilesBaseDir()
     echo "${BASEPATH}"
 }
 
+true <<'=cut'
+=pod
+
+=head2 tunedBackupLogs
+
+Backup logs of tuned into tuned namespace.
+
+    tunedBackupLogs
+
+=over
+
+=back
+
+=cut
+
+tunedBackupLogs()
+{
+    LOG_FILE_PATH="/var/log/tuned/tuned.log"
+    rlServiceStop tuned
+
+    rlFileBackup --namespace tuned "$LOG_FILE_PATH"
+
+    rlServiceRestore tuned
+}
+
+true <<'=cut'
+=pod
+
+=head2 tunedCleanBackupLogs
+
+Clean and then backup logs of tuned into tuned namespace.
+
+    tunedCleanBackupLogs
+
+=over
+
+=back
+
+=cut
+
+tunedCleanBackupLogs()
+{
+    LOG_FILE_PATH="/var/log/tuned/tuned.log"
+    rlServiceStop tuned
+
+    rlFileBackup --namespace tuned "${LOG_FILE_PATH}"
+    rlRun "echo -n > ${LOG_FILE_PATH}"
+
+    rlServiceRestore tuned
+}
+
+true <<'=cut'
+=pod
+
+=head2 tunedRestoreLogs
+
+Restore logs from tuned namespace.
+
+    tunedRestoreLogs
+
+=over
+
+=back
+
+=cut
+
+tunedRestoreLogs()
+{
+    LOG_FILE_PATH="/var/log/tuned/tuned.log"
+    rlServiceStop tuned
+
+    rlFileRestore --namespace tuned
+
+    rlServiceRestore tuned
+}
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Execution
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
