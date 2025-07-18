@@ -353,6 +353,60 @@ tunedRestoreLogs()
 
     rlServiceRestore tuned
 }
+
+true <<'=cut'
+=pod
+
+=head2 tunedInitEnv
+
+Init test env for tuned in one step.
+
+    tunedInitEnv
+
+=over
+
+=back
+
+=cut
+
+tunedInitEnv()
+{
+    tunedDisableSystemdRateLimitingStart
+
+    rlServiceStart tuned
+    tunedProfileBackup
+
+    tunedCleanBackupLogs
+    rlServiceStart tuned
+}
+
+
+true <<'=cut'
+=pod
+
+=head2 tunedUnnitEnv
+
+Set back test env for tuned in one step.
+
+    tunedUninitEnv
+
+=over
+
+=back
+
+=cut
+
+tunedUninitEnv()
+{
+    tunedRestoreLogs
+
+    rlServiceStart tuned
+    tunedProfileRestore
+
+    tunedEnableSystemdRateLimitingStart
+    rlServiceRestore tuned
+}
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Execution
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
